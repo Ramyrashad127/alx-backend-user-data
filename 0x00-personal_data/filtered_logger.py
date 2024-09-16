@@ -2,11 +2,11 @@
 
 
 """import modules"""
-import re
-from typing import List
 import logging
 import mysql.connector
 import os
+import re
+from typing import List
 
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
@@ -39,16 +39,12 @@ def filter_datum(
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """ connect to db using env variables"""
-    username = os.environ.get("PERSONAL_DATA_DB_USERNAME", "root")
-    password = os.environ.get("PERSONAL_DATA_DB_PASSWORD", "")
-    host = os.environ.get("PERSONAL_DATA_DB_HOST", "localhost")
-    db_name = os.environ.get("PERSONAL_DATA_DB_NAME")
-
-    connect = mysql.connector.connection.MySQLConnection(user=username,
-                                                         password=password,
-                                                         host=host,
-                                                         database=db_name)
-    return connect
+    return mysql.connector.connect(
+        user=os.getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
+        password=os.getenv('PERSONAL_DATA_DB_PASSWORD', ''),
+        host=os.getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
+        database=os.getenv('PERSONAL_DATA_DB_NAME')
+    )
 
 
 class RedactingFormatter(logging.Formatter):
