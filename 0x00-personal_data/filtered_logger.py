@@ -39,7 +39,7 @@ def filter_datum(
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """ connect to db using env variables"""
-    return mysql.connector.connect(
+    return mysql.connector.connect.MySQLConnection(
         user=os.getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
         password=os.getenv('PERSONAL_DATA_DB_PASSWORD', ''),
         host=os.getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
