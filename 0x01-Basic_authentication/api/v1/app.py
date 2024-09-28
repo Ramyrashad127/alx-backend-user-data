@@ -41,7 +41,7 @@ def forbidden(error) -> str:
 
 @app.before_request
 def before_request():
-    """ Before request
+    """ new function that validates all requests to secure the API
     """
     if auth is None:
         return
